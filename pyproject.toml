@@ -1,7 +1,9 @@
 [project]
 name = "httpx-jwt"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Simple httpx client for jwt based backend"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "httpx>=0.28.1",
+]

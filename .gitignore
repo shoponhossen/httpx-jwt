@@ -12,4 +12,4 @@ wheels/
 # Custom
 *.token
 temp/
-backend/
+staticfiles/

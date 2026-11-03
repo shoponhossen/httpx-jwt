@@ -120,14 +120,14 @@ class AsyncAPIClient:
         # 2. Handle standard HTTP status loops
         if 200 <= r_status_code <= 299:
             if on_success:
-                on_success(data=r_json, status=r_status_code)
+                await on_success(data=r_json, status=r_status_code)
         elif 400 <= r_status_code <= 499:
             detail = r_json.get("detail")
-            on_error(content=detail if detail else r_json)
+            await on_error(content=detail if detail else r_json)
         elif 500 <= r_status_code <= 599:
-            on_error(content="Internal server error occurred.")
+            await on_error(content="Internal server error occurred.")
         else:
-            on_error(content="Server returned unexpected status code.")
+            await on_error(content="Server returned unexpected status code.")
 
     async def close(self):
         # Closing an AsyncClient must be awaited
@@ -135,11 +135,11 @@ class AsyncAPIClient:
 
 
 # Convert your callback hooks to async def functions so they don't block the loop
-def on_success(data: dict, status: int):
+async def on_success(data: dict, status: int):
     print(f"Success ({status}):", data)
 
 
-def on_error(content: str | dict):
+async def on_error(content: str | dict):
     print("Error:", content)
 
 
